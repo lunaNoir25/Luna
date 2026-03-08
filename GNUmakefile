@@ -4,6 +4,9 @@ BIN			:= ./bin
 LIMINE_BIN  := $(BIN)/limine
 ISO_DIR     := $(BUILD_DIR)/iso
 
+FONT := $(BIN)/spleen-8x16.psfu
+FONT_OBJ := $(BUILD_DIR)/font.o
+
 OVMF := $(BIN)/OVMF_CODE.4m.fd
 
 KERNEL      := $(BUILD_DIR)/luna.elf
@@ -40,13 +43,17 @@ $(ISO): $(KERNEL) limine.conf
 		$(ISO_DIR) -o $(ISO)
 	limine bios-install $(ISO)
 
+$(FONT_OBJ): $(FONT)
+	@mkdir -p $(BUILD_DIR)
+	objcopy -I binary -O elf64-x86-64 -B i386 $< $@
+
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(KERNEL): $(OBJS)
+$(KERNEL): $(OBJS) $(FONT_OBJ)
 	@mkdir -p $(BUILD_DIR)
-	$(LD) $(LDFLAGS) $(OBJS) -o $@
+	$(LD) $(LDFLAGS) $(OBJS) $(FONT_OBJ) -o $@
 
 run: $(ISO)
 	qemu-system-x86_64 -pflash $(OVMF) -cdrom $(ISO) -m 512M -serial stdio

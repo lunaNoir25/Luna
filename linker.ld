@@ -17,25 +17,26 @@ SECTIONS
         *(.text .text.*)
     } :text
 
-    . = ALIGN(0x1000);
-
-    .rodata :
+    .rodata : ALIGN(0x1000)
     {
         *(.rodata .rodata.*)
-        *(.eh_frame*)
-        *(.note*)
     } :rodata
 
-    . = ALIGN(0x1000);
-
-    .data :
+    .data : ALIGN(0x1000)
     {
         *(.data .data.*)
     } :data
 
-    .bss :
+    .bss : ALIGN(0x1000)
     {
         *(.bss .bss.*)
         *(COMMON)
     } :data
+
+    /DISCARD/ :
+    {
+        *(.eh_frame)
+        *(.note .note.*)
+        *(.interp)
+    }
 }
