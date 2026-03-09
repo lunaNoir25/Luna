@@ -31,3 +31,4 @@ For more information, see <https://www.gnu.org/licenses>.
 
 * Limine Bootloader | A lightweight, modern x86_64 bootloader. | Copyright (C) 2019-2026 Mintsuki and contributors. | BSD 2-Clause | <https://codeberg.org/Limine/Limine>
 * Limine Protocol | A boot protocol that standardizes interface hand-offs. | Copyright (C) 2022-2026 Mintsuki and contributors. | BSD 0-Clause | <https://codeberg.org/Limine/limine-protocol>
+* Spleen | A monospaced, bitmap font. | Copyright (c) 2018-2026, Frederic Cambus, All rights reserved. | BSD 2-Clause | <https://github.com/fcambus/spleen>
