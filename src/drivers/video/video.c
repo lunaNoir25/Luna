@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: GPL-3.0+
+
 #include "video.h"
 #include "psf.h"
 
