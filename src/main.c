@@ -45,7 +45,13 @@ void _start(void) {
     put_char('a', 0xAA00AA);
     put_char('!', 0xAA00AA);
 
-halt:
+    set_cursor(960, 540);
+
+    put_char('H', 0xFFFFFF);
+    put_char('i', 0xFFFFFF);
+    put_char('!', 0xFFFFFF);
+
+    halt:
     for (;;) {
         __asm__("hlt");
     }

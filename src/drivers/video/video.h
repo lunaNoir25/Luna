@@ -9,6 +9,7 @@
 #include "../../limine/include/limine.h"
 
 void video_init(struct limine_framebuffer *fb, psf1_header_t *font);
+void set_cursor(uint32_t x, uint32_t y);
 void put_char(char c, uint32_t color);
 void clear(uint32_t color);
 

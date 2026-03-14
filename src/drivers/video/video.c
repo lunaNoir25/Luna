@@ -10,8 +10,7 @@ void video_init(struct limine_framebuffer *fb, psf1_header_t *font) {
     ctx_fb = fb;
     ctx_font = font;
 
-    cursor_x = 0;
-    cursor_y = 0;
+    set_cursor(0, 0);
 }
 
 void clear(uint32_t color) {
@@ -26,22 +25,24 @@ void clear(uint32_t color) {
         }
     }
 
-    cursor_x = 0;
-    cursor_y = 0;
+    set_cursor(0, 0);
+}
+
+void set_cursor(uint32_t x, uint32_t y) {
+    cursor_x = x;
+    cursor_y = y;
 }
 
 void put_char(char c, uint32_t color) {
     if (!ctx_fb || !ctx_font) return;
 
     if (c == '\n') {
-        cursor_x = 0;
-        cursor_y += ctx_font->charsize;
+        set_cursor(cursor_x, cursor_y += ctx_font->charsize);
         return;
     }
 
     if (cursor_x + 8 > ctx_fb->width) {
-        cursor_x = 0;
-        cursor_y += ctx_font->charsize;
+        set_cursor(cursor_x, cursor_y += ctx_font->charsize);
     }
 
     uint8_t *font_ptr = (uint8_t *)_binary_bin_spleen_8x16_psfu_start;
@@ -58,5 +59,5 @@ void put_char(char c, uint32_t color) {
         }
     }
 
-    cursor_x += 8;
+    set_cursor(cursor_x += 8, cursor_y);
 }
